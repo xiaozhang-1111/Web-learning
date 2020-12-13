@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #fab {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        #fab-btn i{
+            font-size: 100px;
+            color: cornflowerblue;
+            transition: transform 1s;
+        }
+
+        #fab:hover #fab-btn i{
+            transform: rotate(180deg);
+        }
+
+        #fab-menu {
+            display: none;
+        }
+
+        #fab-menu ul {
+            list-style-type: none;
+            text-align: center;
+            /*margin: 0;*/
+            /*padding: 0;*/
+        }
+
+        #fab-menu a {
+            display: block;
+            /*text-decoration: none;*/
+        }
+
+        #fab-menu i {
+            font-size: 70px;
+            color: cornflowerblue;
+        }
+
+        i#clear {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="fab">
+        <div id="fab-btn">
+            <a href=""><i class="material-icons">account_circle</i></a>
+        </div>
+        <div id="fab-menu">
+            <ul>
+                <li><a href=""><i class="material-icons">directions_walk</i></a></li>
+                <li><a href=""><i class="material-icons">directions_run</i></a></li>
+                <li><a href=""><i class="material-icons" id="clear">clear</i></a></li>
+            </ul>
+        </div>
+    </div>
+    <p>
+        实现效果：当悬浮在浮动按钮，动态改变按钮图标，过渡旋转180度，渐入二级图标列表
+        <br>
+        <b>原理与思路</b><br>
+        难点在于：<br>
+        通过jquery动态改变元素文本内容，从而改变浮动按钮图标<br>
+        通过CSS实现转动较简单，但不利于动态/抽象改变元素文本内容<br>
+        因此需要结合jquery+css共同实现<br>
+        <br>
+        <b>布局/样式</b><br>
+        fab浮动容器，绝对定位到右上角，内容居中；包含：fab-btn按钮容器，fab-menu容器<br>
+        fab-btn容器，包含浮动按钮图标，颜色/尺寸大小等等；按钮图标最好选用实心图标，空心最好加背景，否则浮动按钮可能不明显<br>
+        fab-menu容器，隐藏。包含列表，每个列表项中超链接，内容为图标<br>
+        可声明特定的二级图标样式，例如删除为红色<br>
+        悬浮在fab容器时，按钮图标过渡旋转180度<br>
+        <br>
+        jquery 容器悬浮监听，进入，修改按钮图标，fab-menu渐入；移出，改回按钮图标，fab-menu渐出
+    </p>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("#fab").on({
+            mouseenter: function () {
+                $("#fab #fab-btn i").text("do_not_disturb_on");
+                $("#fab-menu").fadeIn();
+            },
+            mouseleave: function () {
+                $("#fab #fab-btn i").text("account_circle");
+                $("#fab-menu").fadeOut();
+            }
+        });
+    </script>
+</body>
+</html>
