@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>responsive</title>
+    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        nav {
+            min-width: 180px;
+            /*width: 180px;*/
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 10px 0;
+        }
+
+        nav ul a {
+            display: block;
+            margin: 0;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: black;
+        }
+
+        nav ul a:hover {
+            background-color: #555;
+            color: white;
+        }
+
+        .material-icons {
+            vertical-align: middle;
+            font-size: 30px;
+            padding: 0 10px;
+        }
+
+        nav ul span {
+            vertical-align: middle;
+            padding-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                min-width: 70px;
+            }
+            nav ul span {
+                display: none;
+            }
+        }
+
+        .main {
+            flex-grow: 1;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <nav>
+            <ul>
+                <li><a href=""><i class="material-icons">android</i><span>android</span></a></li>
+                <li><a href=""><i class="material-icons">bluetooth</i><span>bluetooth</span></a></li>
+                <li><a href=""><i class="material-icons">cake</i><span>cake</span></a></li>
+                <li><a href=""><i class="material-icons">camera</i><span>camera</span></a></li>
+                <li><a href=""><i class="material-icons">dashboard</i><span>dashboard</span></a></li>
+            </ul>
+        </nav>
+        <div class="main">
+            <p>
+                <b>原理与思路</b><br>
+                <b>布局</b><br>
+                声明弹性容器<br>
+                声明左导航，右侧主区域<br>
+                导航项中，声明可点击的超链接，超链接内容为分别声明的图标与span文本容器<br>
+                右主区域<br>
+                <br>
+                <b>样式</b><br>
+                引入Google Material Icon<br>
+                全局box计算模式<br>
+                弹性容器<br>
+                左导航容器，声明最小宽度180px<br>
+                项的超链接撑开，确定颜色等基本属性<br>
+                超链接内的图标/文本，通过vertical-align居中对齐<br>
+                悬浮时改变背景色<br>
+                当小于600px时，更改导航区最小宽度，将超链接中的文本取消显式，即仅显示图标
+            </p>
+        </div>
+    </div>
+</body>
+</html>
