@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fixed</title>
+    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .global {
+            display: flex;
+        }
+
+        nav {
+            width: 100px;
+            height: 100vh;
+            position: fixed;
+            background-color: darkslateblue;
+        }
+
+        .item a {
+            display: block;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.5s;
+        }
+
+        .item a:hover {
+            transform: translateY(-5px);
+        }
+
+        .item i {
+            font-size: 50px;
+            color: white;
+        }
+
+        .main {
+            margin-left: 100px;
+            flex-grow: 1;
+            text-align: justify;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="global">
+        <nav>
+            <div class="item">
+                <a href=""><i class="material-icons">ac_unit</i></a>
+            </div>
+            <div class="item">
+                <a href=""><i class="material-icons">access_alarm</i></a>
+            </div>
+            <div class="item">
+                <a href=""><i class="material-icons">account_balance</i></a>
+            </div>
+        </nav>
+        <div class="main">
+            <p>
+                实现左侧固定的侧边栏导航，侧边栏中基于网络提供的Icon图标实现<br>
+                Google Material Icon，是Google设计提供的一套免费开源的图标库<br>
+                Google官方最新为v4版，用以下v3即可<br>
+                学习使用方法及国内CDN：http://micon.dxbtech.cn/<br>
+                正确引入css后，声明展示对应的图标<br>
+                <br>
+                <b>原理与思路</b><br>
+                <b>布局</b><br>
+                声明全局容器<br>
+                声明导航容器<br>
+                导航容器中，声明放置图标的item容器<br>
+                item容器中声明超链接，超链接内容为icon<br>
+                声明复制若干item容器<br>
+                声明主容器<br>
+                主容器中声明段落<br>
+                <br>
+                <b>样式</b><br>
+                全局box计算模式<br>
+                全局弹性容器<br>
+                左导航容器，显式声明宽度，高度为浏览器窗口高度，固定。即，当内容长度超过一屏可滚动时，左导航不动<br>
+                右侧主区域容器，占用除左导航外的最大<br>
+                <br>
+                由于左侧导航按固定布局，因此，弹性布局不计算其尺寸。 即，此时弹性容器内，仅有一个主容器。 因此，主区域容器布局时，用margin据左为左导航宽度，从而避免导航压住内容区域<br>
+                item容器，中内容居中，即超链接居中<br>
+                超链接导航，内边距撑开，可点击范围为全部item等<br>
+                Google图标，为Google图标创建一个自定义样式类，声明图标的颜色/尺寸样式<br>
+                Google图标库基于文本声明，因此图标的颜色/尺寸等是基于文本的属性<br>
+                当悬浮在item，item向上移动5px，添加渐进效果。即，当悬浮时，有图标向上跳一下的效果
+            </p>
+        </div>
+    </div>
+</body>
+</html>
