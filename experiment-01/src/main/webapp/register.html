@@ -5,6 +5,49 @@
     <title>register</title>
 </head>
 <body>
-    
+    <form enctype="multipart/form-data" action="/register.html" method="post">
+        <div>
+            <p>个人信息</p>
+            用户名：
+            <label><input type="text" required></label><br>
+            密码：
+            <label><input type="password" required></label><br>
+            性别：
+            <label><input type="radio" name="gender" id="male">男</label>
+            <label><input type="radio" name="gender" id="female">女</label><br>
+            生日：
+            <label><input type="date"></label><br>
+            籍贯：
+            <label><input list="home">
+                <datalist id="home">
+                    <option>哈尔滨</option>
+                    <option>长春</option>
+                    <option>沈阳</option>
+                </datalist>
+            </label><br>
+            学历：
+            <label>
+                <select>
+                    <option>-请选择-</option>
+                    <option selected>学士</option>
+                    <option>硕士</option>
+                    <option>博士</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <p>其他信息</p>
+            喜欢的课程：
+            <ul>
+                <li><label><input type="checkbox" checked id="web">Web开发技术</label></li>
+                <li><label><input type="checkbox" id="java">Java程序设计</label></li>
+                <li><label><input type="checkbox" id="db">数据库原理</label></li>
+                <li><label><input type="checkbox" id="system">系统分析与测试</label></li>
+            </ul>
+            照片：<input type="file" accept=".jpg, .png"><br>
+            <button type="submit">提交</button>
+            <button type="reset">重置</button>
+        </div>
+    </form>
 </body>
 </html>
