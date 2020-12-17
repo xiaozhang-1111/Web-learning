@@ -91,12 +91,12 @@
     <script>
         $("#fab").on({
             mouseenter: function () {
-                $("#fab #fab-btn i").text("do_not_disturb_on");
-                $("#fab-menu").fadeIn();
+                $(this).children("#fab-btn").find("i").text("do_not_disturb_on");
+                $(this).children("#fab-menu").fadeIn();
             },
             mouseleave: function () {
-                $("#fab #fab-btn i").text("account_circle");
-                $("#fab-menu").fadeOut();
+                $(this).children("#fab-btn").find("i").text("account_circle");
+                $(this).children("#fab-menu").fadeOut();
             }
         });
     </script>
