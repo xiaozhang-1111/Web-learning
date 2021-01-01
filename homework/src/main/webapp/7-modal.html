@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>modal</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .modal {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+        }
+
+        .modal .modal-dialog {
+            width: 500px;
+            position: relative;
+            margin: auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .modal .modal-dialog .modal-header {
+            height: 50px;
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .modal .modal-dialog .modal-content {
+            padding: 15px 15px 30px 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .modal .modal-dialog .modal-footer {
+            padding: 15px;
+            text-align: right;
+        }
+
+        .btn {
+            padding: 10px;
+            margin: 2px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: gray;
+        }
+
+        .btn-primary {
+            background: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div style="font-size: 2em">
+        Modal模态框是一种更灵活、更强大的自定义对话框<br>
+        实现效果：当模态框被激活，覆盖在网页内容上，并在弹出的窗口中显式详细互交信息<br>
+        参考：https://getbootstrap.net/docs/components/modal/<br>
+        <br>
+        <h3>原理与思路</h3>
+        <h4>布局与样式</h4>
+        modal容器，全屏，默认隐藏，显式时绝对定位覆盖在显式窗口。包含modal-dialog容器<br>
+        模态框容器背景色透明，而非元素透明，否则容器内的元素也会透明。rgba()<br>
+        modal-dialog容器，为模态框信息容器，显式声明宽度，居中，相对modal定位，从而可以添加渐入渐出效果。<br>
+        可包含header/content/footer部分容器<br>
+        modal-header容器，模态框内容中的标题区域，标题字体，边距/边框等<br>
+        modal-content/modal-footer容器，主内容/页脚区域，字体/按钮组/边距等<br>
+        <br>
+        jquery<br>
+        抽象设计模态框组件与激活组件。绑定模态框组件ID至激活组件的data-target自定义属性中。<br>
+        即，监听任何具有data-target属性组件的点击事件，获取其绑定的模态框id值，从而基于id获取模态框对象，渐出该模态框。<br>
+        希望实现，当点击模态框内，对话框外，即空白背景区域时，关闭模态框。 但空白区域不是独立的元素，是模态框元素的一部分。<br>
+        即，无法通过选择器选取该区域<br>
+        如果给模态框容器整体添加点击监听，当点击模态框内的互交对话框时，一样会关闭模态框，从而无法实现与对话框的互交<br>
+        <br>
+        事件的向上冒泡传递机制<br>
+        当子元素事件被激活，一样会影响到父元素监听的事件。<br>
+        即，当激活子元素点击事件，如果父元素也注册了点击事件，则也会激活父元素的点击事件。即，事件的向上冒泡传播<br>
+        因此，可通过在子元素中阻止事件的冒泡，实现在对话框内操作时，不会影响到模态框容器<br>
+        实现，监听模态框内对话框的监听事件，回调中直接返回false，即可阻止激活父元素模态框的点击事件<br>
+        任何具有自定义data-dismiss属性的元素被点击时，向上查询所有父元素节点，关闭其所在模态框<br>
+        为modal-footer中的关闭按钮，赋自定义关闭属性<br>
+        <br>
+        可通过animate()方法，添加对话框的动态定位，从默认的顶端，渐变定位到距上30px，即对话框从上向下渐入；<br>
+        关闭模态框时，再将对话框渐变定位到顶端，即，从下向上渐出
+    </div>
+
+    <button type="button" data-toggle="modal" data-target="#exampleModal">
+        点击激活模态框
+    </button>
+
+    <div class="modal fade" id="exampleModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Modal title</h3>
+            </div>
+            <div class="modal-content">
+                Woohoo, you're reading this text in a modal!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("[data-target]").click(function () {
+            let id = $(this).data("target");
+            let modal = `${id}`;
+            $(modal).fadeIn();
+            $(modal).children(".modal-dialog").animate({top: "30px"}, 300);
+        });
+
+        $(".modal").click(function () {
+            $(this).fadeOut();
+            $(this).children(".modal-dialog").animate({top: "0"}, 300);
+        });
+
+        $("button[data-dismiss]").click(function () {
+            $(this).parents(".modal").fadeOut();
+            $(this).parents(".modal").children(".modal-dialog").animate({top: "0"}, 300);
+        });
+
+        $(".modal .modal-dialog").click(false);
+    </script>
+</body>
+</html>
