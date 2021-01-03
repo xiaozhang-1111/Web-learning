@@ -48,12 +48,13 @@
     <h3>Update</h3>
     修改指定用户
     <form action="update" method="post">
-        <select name="uid">
+        <label><select name="uid">
             <c:forEach items="${users}" var="u">
                 <option value="${u.id}">${u.name}</option>
             </c:forEach>
-        </select>
-        new name:<input type="text" name="name" required>
+        </select></label>
+            new name:
+            <label><input type="text" name="name" required></label>
         <br>
         <button type="submit">提交</button>
     </form>
