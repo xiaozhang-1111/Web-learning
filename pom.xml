@@ -17,6 +17,7 @@
         <module>experiment-05</module>
         <module>experiment-05</module>
         <module>experiment-05</module>
+        <module>experiment-06</module>
     </modules>
     <packaging>pom</packaging>
 </project>
