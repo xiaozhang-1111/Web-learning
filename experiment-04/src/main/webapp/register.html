@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <label>
+        <input type="checkbox" id="legal">我已阅读相关说明并遵守相关法律
+    </label><br>
+    <form id="register">
+        <label>
+            用户名：<input type="text" name="username">
+        </label><br>
+        <label>
+            未来意向：
+            <input type="radio" name="purp" value="1">Java工程师
+            <input type="radio" name="purp" value="2">前端工程师
+            <input type="radio" name="purp" value="3">测试工程师
+        </label><br>
+        <!-- 添加隐藏域 -->
+        <input type="hidden" name="purpose">
+        <br>
+        请从以下课程中选择两门最喜欢的课程
+        <ul>
+            <li><label>
+                <input type="checkbox" name="courses">Web开发技术
+            </label></li>
+            <li><label>
+                <input type="checkbox" name="courses">软件项目管理
+            </label></li>
+            <li><label>
+                <input type="checkbox" name="courses">数据库原理
+            </label></li>
+            <li><label>
+                <input type="checkbox" name="courses">系统分析与设计
+            </label></li>
+        </ul>
+        地址：
+        <ul id="ul_address"></ul>
+        <label><input name="address"></label>
+        <button type="button" id="button_address">添加地址</button><br>
+        <button type="submit">提交</button>
+    </form>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            let registerForm = $("#register :input").prop("disabled", true);
+            let userNameValid = false;
+            let coursesValid = false;
+
+            $("#legal").click(function () {
+               let dis = !$(this).prop("checked");
+               registerForm.not($("button:submit")).prop("disabled", dis);
+            });
+
+            $("input[name=username]").change(function () {
+                if ($(this).val().trim().length < 6) {
+                    alert("用户名长度应不小于6位");
+                    userNameValid = false;
+                } else {
+                    userNameValid = true;
+                }
+            });
+
+            let radios = "input[name=purp]";
+            let hiddenInput = "input[name=purpose]";
+            $(radios).click(function () {
+                if ($(this).val() === $(hiddenInput).val()) {
+                    $(hiddenInput).val(0);
+                    $(this).prop("checked", false);
+                } else {
+                    $(hiddenInput).val($(this).val());
+                }
+            })
+
+            const amount = 2;
+            const checkboxes = "input[name=courses]";
+            $(checkboxes).click(function () {
+                let checked = $(checkboxes).filter(":checked");
+                let unChecked = $(checkboxes).not(":checked");
+                coursesValid = checked.length >= amount;
+                unChecked.prop("disabled", coursesValid);
+            });
+
+            $("input[name=username], input[name=courese]").change(() => {
+                let dis = userNameValid && coursesValid;
+                $("button:submit").prop("disabled", !dis);
+            });
+
+            $("#button_address").click(() => {
+                let input = "input[name=address]";
+                let item = `<li>${$(input).val()}</li>`;
+                $(input).val("");   //清空输入框
+                $(item).css("display", "none");
+                $("#ul_address").append($(item));
+                $(item).fadeIn(1000);
+            });
+        })
+    </script>
+</body>
+</html>
