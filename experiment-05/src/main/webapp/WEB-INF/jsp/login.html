@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+    <h3>需求+设计提示</h3>
+    <h4>需求+1</h4>
+    在/WEB_INF/jsp/下，创建login.html登录页面，声明登录form表单，向/login发出请求<br>
+    在/WEB_INF/jsp/下，创建welcome.html页面，声明欢迎文本<br>
+    <br>
+    在java目录下，编写java代码<br>
+    在com.controller下，创建LoginServlet类，处理/login地址请求，重写doGet()方法，转发请求至login.html<br>
+    在com.controller下，创建WelcomeServlet类，处理/welcome地址请求，重写doGet()，转发至welcome.html<br>
+    在login.html添加，向/welcome地址请求的超链接<br>
+    基于IDEA&Tomat/Encoding&WAR&JSP视频，在调试模式下，部署运行项目至tomcat服务器<br>
+    向login发起请求，正确运行后，浏览器将显式登录页面<br>
+    ctrl+F9在debug运行模式下重新编译/部署项目<br>
+    <br>
+    <h4>需求+1</h4>
+    在com.entity下，创建User实体类，声明用户姓名/账号/密码等私有属性<br>
+    重写LoginServlet的doPost()方法，获取页面传入的登录账号/密码参数， 实现当账号/密码为指定字符串时，创建user对象，并将对象添加至session中<br>
+    且，登录成功，重定向到/welcome，即welcome页面；登录失败，重定向到/login，即登录页面<br>
+    <br>
+    此时，仍可直接向/welcome地址发送请求<br>
+    <br>
+    <h4>需求+1</h4>
+    在com.filter下，创建LoginFilter过滤器，声明排除路径，重写doFilter()方法，判断请求路径是否为排除路径，判断用户是否已登录<br>
+    从而实现，当用户已登录，可以直接发送/welcome请求；未登录，重定向到/login登录<br>
+    关闭/重启服务器(为了清空session)，尝试在登录/未登录状态下，向/welcome请求<br>
+    <hr>
+    <form action="login" method="post">
+        用户名：<label><input type="text" name="username"></label><br>
+        密码：<label><input type="password" name="pwd"></label><br>
+        <button type="submit">登录</button>
+    </form>
+    <a href="/welcome">测试：未登录则重定向回本页</a>
+</body>
+</html>
