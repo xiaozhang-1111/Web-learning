@@ -103,7 +103,7 @@
         <div class="clear"></div>
     </div>
     <!--footer-->
-    <%@include file="footer.jsp"%>>
+    <%@include file="footer.jsp"%>
     <script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
     <script type="text/javascript" src="js/jquery.SuperSlide.2.1.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
